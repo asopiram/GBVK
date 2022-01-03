@@ -36,7 +36,7 @@ final class FriendsAPI {
             
             //print(response.result)
             
-            print(response.data?.prettyJSON)
+            //print(response.data?.prettyJSON)
             
             guard let jsonData = response.data else { return }
             
@@ -52,6 +52,7 @@ final class FriendsAPI {
         }
     }
     
+
     func getFriends2(completion: @escaping([FriendManual])->()) {
         
         let path = "/friends.get"
@@ -68,7 +69,7 @@ final class FriendsAPI {
         
         AF.request(url, method: .get, parameters: params).responseJSON { response in
             
-            print(response.result)
+            //print(response.result)
             
             //print(response.data?.prettyJSON)
             
@@ -91,6 +92,7 @@ final class FriendsAPI {
         }
     }
     
+    //MARK: 3-d 
     func getFriends3(completion: @escaping([FriendDTO])->()) {
         
         let path = "/friends.get"
@@ -99,14 +101,16 @@ final class FriendsAPI {
         let params: [String: String] = [
             "user_id": userId,
             "order": "name",
-            "count": "2",
+            "count": "1000",
             "fields": "photo_100, photo_50, city, domain",
             "access_token": accessToken,
             "v": version
         ]
         
         AF.request(url, method: .get, parameters: params).responseJSON { response in
-
+            
+            //print(response.result)
+            
             //print(response.data?.prettyJSON)
             guard let jsonData = response.data else { return }
             

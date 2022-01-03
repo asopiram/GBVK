@@ -9,9 +9,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-struct GroupSearch {//заглушка на выводимые данные
-    var groupSearch = "bobik"
-}
+//struct GroupSearchDTO {//заглушка на выводимые данные
+//    var groupSearch = "bobik"
+//}
 
 final class GroupSearchAPI {
     
@@ -22,7 +22,7 @@ final class GroupSearchAPI {
     let accessToken = Session.shared.token
     let version = Session.shared.versionVk
     
-    func getGroupSearch(completion: @escaping([GroupSearch])->()) {
+    func getGroupSearch(completion: @escaping([GroupSearchDTO])->()) {
         
         let path = "/groups.search"
         let url = baseUrl + path
@@ -40,16 +40,16 @@ final class GroupSearchAPI {
         AF.request(url, method: .get, parameters: params).responseJSON { response in
 
             //print(response.result)
-            print(response.data?.prettyJSON)
-//            guard let jsonData = response.data else { return }
-//
-//            do {
-//                let itemsData = try JSON(jsonData)["response"]["items"].rawData()
-//                let friends = try JSONDecoder().decode([FriendDTO].self, from: itemsData)
-//                completion(friends)
-//            } catch {
-//                print(error)
-//            }
+            //print(response.data?.prettyJSON)
+            guard let jsonData = response.data else { return }
+
+            do {
+                let itemsData = try JSON(jsonData)["response"]["items"].rawData()
+                let friends = try JSONDecoder().decode([GroupSearchDTO].self, from: itemsData)
+                completion(friends)
+            } catch {
+                print(error)
+            }
         }
     }
 }
