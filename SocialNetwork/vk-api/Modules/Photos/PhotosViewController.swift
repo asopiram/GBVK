@@ -6,12 +6,12 @@
 //
 
 import UIKit
-
+import SDWebImage
 
 class PhotosViewController: UICollectionViewController {
     
     private var photoAPI = PhotoAPI()
-    private var photo: [Photo] = []
+    private var photos: [PhotoDTO] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,60 +20,46 @@ class PhotosViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
         
-        photoAPI.getPhotos{ [weak self] photo in
+        
+        photoAPI.getPhotos{ [weak self] photos in
             guard let self = self else {return}
-            self.photo = photo
+            self.photos = photos
             self.collectionView.reloadData()
+            
+            
         }
         
         // Do any additional setup after loading the view.
     }
-
+    
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return photo.count
+        return photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath)
-    
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoViewCell", for: indexPath) as! PhotosViewCell
+        
+        //cell.PhotoImageView.backgroundColor = .yellow //покрасил для того, чтобы увидеть, что создаются ячейки
+        
+        let photoPath: PhotoDTO = photos[indexPath.item]
+        let photoSize = photoPath.sizes.last
+        let url = photoSize!.url
+        
+        cell.PhotoImageView.sd_setImage(with: URL.init(string: url), completed: nil)
+        
     
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }

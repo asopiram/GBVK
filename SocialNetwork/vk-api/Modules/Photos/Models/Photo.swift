@@ -1,18 +1,30 @@
 //
-//  PhotoDTO.swift
+//  Photo.swift
 //  SocialNetwork
 //
-//  Created by Дмитрий Шароваров on 12/22/21.
+//  Created by Дмитрий Шароваров on 12/20/21.
 //
 
+//   let photo = try? newJSONDecoder().decode(Photo.self, from: jsonData)
+/*
 import Foundation
 
+// MARK: - Photo
+struct PhotoContainer: Codable {
+    let response: PhotoResponse
+}
 
-// MARK: - ItemDTO
-struct PhotoDTO: Codable {
+// MARK: - Response
+struct PhotoResponse: Codable {
+    let count: Int
+    let items: [Photo]
+}
+
+// MARK: - Item
+struct Photo: Codable {
     let albumID, postID, id, date: Int
     let text: String
-    let sizes: [Size]
+    let sizes: [Size2]
     let hasTags: Bool
     let ownerID: Int
     let lat, long: Double?
@@ -27,9 +39,10 @@ struct PhotoDTO: Codable {
     }
 }
 
-// MARK: - Size
-struct Size: Codable {
+//MARK: - Size2
+struct Size2: Codable {
     let width, height: Int
     let url: String
     let type: String
 }
+*/

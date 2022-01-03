@@ -9,9 +9,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-struct Groups {//заглушка
-    var group = "bobik"
-}
+//struct GroupsDTO {//заглушка
+//    var group = "bobik"
+//}
 
 final class GroupsAPI {
     
@@ -20,7 +20,7 @@ final class GroupsAPI {
     let accessToken = Session.shared.token
     let version = Session.shared.versionVk
     
-    func getGroups(completion: @escaping([Groups])->()) {
+    func getGroups(completion: @escaping([GroupsDTO])->()) {
         
         let path = "/groups.get"
         let url = baseUrl + path
@@ -36,16 +36,17 @@ final class GroupsAPI {
         AF.request(url, method: .get, parameters: params).responseJSON { response in
 
             //print(response.result)
-            print(response.data?.prettyJSON)
-//            guard let jsonData = response.data else { return }
-//
-//            do {
-//                let itemsData = try JSON(jsonData)["response"]["items"].rawData()
-//                let friends = try JSONDecoder().decode([FriendDTO].self, from: itemsData)
-//                completion(friends)
-//            } catch {
-//                print(error)
-//            }
+            //print(response.data?.prettyJSON)
+            
+            guard let jsonData = response.data else { return }
+
+            do {
+                let itemsData = try JSON(jsonData)["response"]["items"].rawData()
+                let groups = try JSONDecoder().decode([GroupsDTO].self, from: itemsData)
+                completion(groups)
+            } catch {
+                print(error)
+            }
         }
     }
 }
