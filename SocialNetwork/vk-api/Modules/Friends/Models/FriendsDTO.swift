@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - FriendDTO
-struct FriendDTO: Codable {
+// MARK: - FriendsDTO
+struct FriendsDTO: Codable {
     let domain: String
     let id: Int
     let photo100: String

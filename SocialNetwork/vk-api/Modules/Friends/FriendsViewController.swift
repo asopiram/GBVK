@@ -7,32 +7,41 @@
 
 import UIKit
 import SDWebImage
+import RealmSwift
 
 final class FriendsViewController: UITableViewController {
 
     private var friendsAPI = FriendsAPI()
-    
-    private var friends: [FriendDTO] = []
+    private var friendsDB = FriendsDB()
+    private var friends: Results<FriendsDAO>?
+    //private var friends: [FriendDTO] = []
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "FriendCell")
         
+        friendsDB.deleteAll()
+        
         friendsAPI.getFriends3 { [weak self] friends in
             guard let self = self else { return }
             
-            self.friends = friends
+            self.friendsDB.save(friends)
+            self.friends = self.friendsDB.fetch()
             self.tableView.reloadData()
         }
-        
-        
     }
 
-    // MARK: - Table view data source
-
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        guard let friends = friends else { return 0 }
         return friends.count
     }
 
@@ -40,20 +49,17 @@ final class FriendsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath)
         
-        let friend: FriendDTO = friends[indexPath.row]
+        if let friend = friends?[indexPath.row]{
         
-        cell.textLabel?.text = "\(friend.firstName) \(friend.lastName)"
-        
-        
-        if let url = URL(string: friend.photo100) {
-            //cell.imageView?.sd_setImage(with: url, completed: nil)
-            cell.imageView?.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder.png"))
-        } else {
-            cell.imageView?.image = UIImage(named: "NoPhoto")//если ее нет, ставим дефолтную
+            cell.textLabel?.text = "\(friend.firstName) \(friend.lastName)"
+            
+            if let url = URL(string: friend.photo100) {
+                //cell.imageView?.sd_setImage(with: url, completed: nil)
+                cell.imageView?.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder.png"))
+            } else {
+                cell.imageView?.image = UIImage(named: "NoPhoto")//если ее нет, ставим дефолтную
+            }
         }
-
         return cell
     }
-    
-
 }

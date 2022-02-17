@@ -74,7 +74,7 @@
                     <connections>
                         <segue destination="yLf-oa-mhk" kind="relationship" relationship="viewControllers" id="OYx-Td-kQJ"/>
                         <segue destination="eYI-N4-oBm" kind="relationship" relationship="viewControllers" id="5bb-tX-vQc"/>
-                        <segue destination="53C-dR-tHM" kind="relationship" relationship="viewControllers" id="FwS-D9-JsV"/>
+                        <segue destination="53C-dR-tHM" kind="relationship" relationship="viewControllers" id="tbf-Kj-YRX"/>
                         <segue destination="S2y-1D-oVS" kind="relationship" relationship="viewControllers" id="9bh-wy-fEq"/>
                     </connections>
                 </tabBarController>
@@ -137,7 +137,7 @@
         <!--Группы-->
         <scene sceneID="uRy-62-ubQ">
             <objects>
-                <tableViewController id="53C-dR-tHM" customClass="GoupsViewController" customModule="SocialNetwork" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="53C-dR-tHM" customClass="GroupsViewController" customModule="SocialNetwork" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ULl-1v-692">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -158,6 +158,9 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Группы" id="pcc-5M-Js6"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNn-Wm-uGt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
