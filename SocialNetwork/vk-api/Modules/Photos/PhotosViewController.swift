@@ -20,7 +20,7 @@ class PhotosViewController: UICollectionViewController {
         super.viewDidLoad()
 
         //photosDB.deleteAll()
-        
+         
         photosAPI.getPhotos { [weak self] photos in
             guard let self = self else { return }
             
