@@ -8,11 +8,11 @@
 import Foundation
 
 
-// MARK: - ItemDTO
-struct PhotoDTO: Codable {
+// MARK: - PhotosDTO
+struct PhotosDTO: Codable {
     let albumID, postID, id, date: Int
     let text: String
-    let sizes: [Size]
+    let sizes: [SizeDTO]
     let hasTags: Bool
     let ownerID: Int
     let lat, long: Double?
@@ -28,7 +28,7 @@ struct PhotoDTO: Codable {
 }
 
 // MARK: - Size
-struct Size: Codable {
+struct SizeDTO: Codable {
     let width, height: Int
     let url: String
     let type: String

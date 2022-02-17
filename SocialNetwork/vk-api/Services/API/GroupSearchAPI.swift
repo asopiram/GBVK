@@ -9,9 +9,6 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-//struct GroupSearchDTO {//заглушка на выводимые данные
-//    var groupSearch = "bobik"
-//}
 
 final class GroupSearchAPI {
     
@@ -46,6 +43,7 @@ final class GroupSearchAPI {
             do {
                 let itemsData = try JSON(jsonData)["response"]["items"].rawData()
                 let friends = try JSONDecoder().decode([GroupSearchDTO].self, from: itemsData)
+                
                 completion(friends)
             } catch {
                 print(error)

@@ -7,42 +7,39 @@
 
 import UIKit
 import SDWebImage
+import RealmSwift
 
 class PhotosViewController: UICollectionViewController {
     
-    private var photoAPI = PhotoAPI()
-    private var photos: [PhotoDTO] = []
+    private var photosAPI = PhotosAPI()
+    //private var photosDB = PhotosDB()
+    //private var photos: Results<PhotosDAO>?
+    private var photos: [PhotosDTO] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        //photosDB.deleteAll()
         
-        
-        photoAPI.getPhotos{ [weak self] photos in
-            guard let self = self else {return}
+        photosAPI.getPhotos { [weak self] photos in
+            guard let self = self else { return }
+            
+            //self.photosDB.save(photos)
+            //self.photos = self.photosDB.fetch()
             self.photos = photos
             self.collectionView.reloadData()
-            
-            
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+        
+        //guard let photos = photos else { return 0 }
         return photos.count
     }
 
@@ -51,15 +48,32 @@ class PhotosViewController: UICollectionViewController {
         
         //cell.PhotoImageView.backgroundColor = .yellow //покрасил для того, чтобы увидеть, что создаются ячейки
         
-        let photoPath: PhotoDTO = photos[indexPath.item]
-        let photoSize = photoPath.sizes.last
-        let url = photoSize!.url
+        //для PhotoDB
+        /*
+        if let photo = photos?[indexPath.row] {
+            print(photo.sizes.first?.url)
         
-        cell.PhotoImageView.sd_setImage(with: URL.init(string: url), completed: nil)
+            if let url = URL(string: photo.sizes.first!.url) {
+            
+            cell.PhotoImageView.sd_setImage(with: url) { (image, _, _, _) in
+                collectionView.reloadItems(at: [indexPath])
+                }
+            } else {
+                print("error")
+            }
+        }
+        */
         
-    
+        //для PhotoDTO
+        let photoPath: PhotosDTO = photos[indexPath.item]
+        
+        if let photoSize = photoPath.sizes.last {
+            
+            let url = photoSize.url
+            print(url)
+            cell.PhotoImageView.sd_setImage(with: URL.init(string: url), completed: nil)
+        }
+        
         return cell
     }
-
-
 }

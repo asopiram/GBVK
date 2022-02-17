@@ -10,7 +10,7 @@ import WebKit
 import Alamofire
 
 class VKAuthViewController: UIViewController, WKNavigationDelegate {
-
+    
     @IBOutlet weak var webView: WKWebView! {
         didSet {
             webView.navigationDelegate = self
@@ -20,8 +20,6 @@ class VKAuthViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         AuthVK()
-
-        // Do any additional setup after loading the view.
     }
     
     func AuthVK() {
@@ -50,27 +48,24 @@ class VKAuthViewController: UIViewController, WKNavigationDelegate {
         
         guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment  else {
             
-            print(navigationResponse.response.url)
+            //print(navigationResponse.response.url)
             decisionHandler(.allow)
             return
         }
-         
+        
         //https://oauth.vk.com/blank.html#access_token=e5c0e33b669ed761178aaf8a5cf75caa8ee066bd7c7cc0c5f2cdf181c5a63da086e90dd15110e89f82459&expires_in=86400&user_id=3690675
         // [access_token, e5c0e33b669ed761178aaf8a5cf75caa8ee066bd7c7cc0c5f2cdf181c5a63da086e90dd15110e89f82459, expires_in, 86400, user_id, 3690675
         
-        //[access_token, b291beab60edaf11cc10704cc2937ac1db857a7e4d5aa508df1d1784e01142811e9e1c18ab53425dd534c, expires_in, 86400, user_id, 223761261]
-        //[:]
-        
         let params = fragment
-                    .components(separatedBy: "&")
-                    .map { $0.components(separatedBy: "=") }
-                    .reduce([String: String]()) { result, param in// при помощи функции высшего порядка делаем словарь из url
-                                    var dict = result //буферная переменная
-                                    let key = param[0]
-                                    let value = param[1]
-                                    dict[key] = value
-                                    return dict
-                            }
+            .components(separatedBy: "&")
+            .map { $0.components(separatedBy: "=") }
+            .reduce([String: String]()) { result, param in// при помощи функции высшего порядка делаем словарь из url
+                var dict = result //буферная переменная
+                let key = param[0]
+                let value = param[1]
+                dict[key] = value
+                return dict
+            }
         
         guard let token = params["access_token"], let userId = params["user_id"] else { return }
         
@@ -78,9 +73,9 @@ class VKAuthViewController: UIViewController, WKNavigationDelegate {
         Session.shared.userId = userId
         
         performSegue(withIdentifier: "showTabBarSegue", sender: nil)
-        print(url)
+        //print(url)
         
         decisionHandler(.cancel)
     }
-
+    
 }
