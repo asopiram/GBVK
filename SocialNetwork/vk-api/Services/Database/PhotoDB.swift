@@ -26,7 +26,7 @@ class PhotosDAO: Object, Codable {
     enum CodingKeys: String, CodingKey {
         case albumID = "album_id"
         case postID = "post_id"
-        case id, date, text, lat //sizes
+        case id, date, text, lat, sizes
         case ownerID = "owner_id"
         case long
     }
@@ -57,8 +57,8 @@ final class PhotosDB {
         try! realm.write {
             realm.add(items)
         }
-        guard  let url = realm.configuration.fileURL else { return }
-        print(url)
+        //guard  let url = realm.configuration.fileURL else { return }
+        //print(url)
     }
     
     func fetch() -> Results<PhotosDAO> {

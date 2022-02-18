@@ -17,7 +17,7 @@ final class PhotosAPI {
     let accessToken = Session.shared.token
     let version = Session.shared.versionVk
     
-    func getPhotos(completion: @escaping([PhotosDTO])->()) {
+    func getPhotos(completion: @escaping([PhotosDAO])->()) {
         
         let path = "/photos.get"
         let url = baseUrl + path
@@ -33,13 +33,13 @@ final class PhotosAPI {
         
         AF.request(url, method: .get, parameters: params).responseJSON { response in
             
-            print(response.data?.prettyJSON)
+            //print(response.data?.prettyJSON)
             
             guard let jsonData = response.data else { return }
             
             do {
                 let itemsData = try JSON(jsonData)["response"]["items"].rawData()
-                let photos = try JSONDecoder().decode([PhotosDTO].self, from: itemsData)
+                let photos = try JSONDecoder().decode([PhotosDAO].self, from: itemsData)
                 
                 completion(photos)
             } catch {

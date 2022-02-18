@@ -52,8 +52,8 @@ final class GroupsDB {
         try! realm.write {
             realm.add(items)
         }
-        guard  let url = realm.configuration.fileURL else { return }
-        print(url)
+        //guard  let url = realm.configuration.fileURL else { return }
+        //print(url)
     }
     
     func fetch() -> Results<GroupsDAO> {

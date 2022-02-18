@@ -40,7 +40,9 @@ class GroupSearchViewController: UITableViewController {
         cell.textLabel?.text = "\(lookForGroup.name)"
         
         if let url = URL(string: lookForGroup.photo100) {
-            cell.imageView?.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder.png"))
+            cell.imageView?.sd_setImage(with: url, completed:  { image, _, _, _ in
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            })
         } else {
             cell.imageView?.image = UIImage(named: "NoLogo")
         }
