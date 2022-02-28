@@ -56,6 +56,7 @@
 		8C379B7C278F4AF000D929C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C379B7B278F4AF000D929C8 /* GoogleService-Info.plist */; };
 		8C379B7F278F4C0B00D929C8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8C379B7E278F4C0B00D929C8 /* FirebaseAuth */; };
 		8C379B81278F4C0B00D929C8 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8C379B80278F4C0B00D929C8 /* FirebaseDatabase */; };
+		8CBC4F7027BFD59E0093854F /* Session Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBC4F6F27BFD59D0093854F /* Session Firebase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		8C379B75278F43C600D929C8 /* GroupsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsDB.swift; sourceTree = "<group>"; };
 		8C379B77278F43E600D929C8 /* PhotoDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDB.swift; sourceTree = "<group>"; };
 		8C379B7B278F4AF000D929C8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8CBC4F6F27BFD59D0093854F /* Session Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session Firebase.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				61CAF41327690DC100D1CC05 /* Session.swift */,
+				8CBC4F6F27BFD59D0093854F /* Session Firebase.swift */,
 				61CA893E276FAB0600C9DB85 /* API */,
 				8C379B72278DEAD300D929C8 /* Database */,
 				61CA894C276FC1EF00C9DB85 /* Extensions */,
@@ -483,6 +486,7 @@
 				61265E322755771100D030BC /* AllGroupTableViewCell.swift in Sources */,
 				8C379B78278F43E600D929C8 /* PhotoDB.swift in Sources */,
 				61CA8944276FB0EF00C9DB85 /* FriendsViewController.swift in Sources */,
+				8CBC4F7027BFD59E0093854F /* Session Firebase.swift in Sources */,
 				61CA8949276FC05A00C9DB85 /* FriendManual.swift in Sources */,
 				61CA896B27728D2F00C9DB85 /* PhotosDTO.swift in Sources */,
 				61265E1F2755688400D030BC /* UserFriendsTableViewCell.swift in Sources */,
